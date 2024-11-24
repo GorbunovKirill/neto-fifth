@@ -28,9 +28,9 @@ private slots:
 
 private:
     QTimer *timer;
-    float currentTime; // Time in seconds
+    float currentTime;
     bool running;
     int lapCount;
 };
 
-#endif // STOPWATCH_H
+#endif

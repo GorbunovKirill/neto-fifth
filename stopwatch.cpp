@@ -17,7 +17,7 @@ void Stopwatch::startStop()
     if (running) {
         timer->stop();
     } else {
-        timer->start(100); // Updates every 100 ms
+        timer->start(100);
     }
     running = !running;
     emit runningStateChanged(running);

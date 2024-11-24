@@ -29,4 +29,4 @@ private:
     Stopwatch *stopwatch;
 };
 
-#endif // MAINWINDOW_H
+#endif
