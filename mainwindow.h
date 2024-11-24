@@ -17,8 +17,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void updateTimeDisplay(float time);
+    void updateTimeDisplay(int minutes, int seconds, int milliseconds);
     void addLap(const QString &lapTime);
+    void updateButtonStates(bool running);
     void onStartStopClicked();
     void onResetClicked();
     void onLapClicked();
@@ -28,4 +29,4 @@ private:
     Stopwatch *stopwatch;
 };
 
-#endif
+#endif // MAINWINDOW_H

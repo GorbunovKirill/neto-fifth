@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(stopwatch, &Stopwatch::timeUpdated, this, &MainWindow::updateTimeDisplay);
     connect(stopwatch, &Stopwatch::lapTimeUpdated, this, &MainWindow::addLap);
+    connect(stopwatch, &Stopwatch::runningStateChanged, this, &MainWindow::updateButtonStates);
 
     connect(ui->startStopButton, &QPushButton::clicked, this, &MainWindow::onStartStopClicked);
     connect(ui->resetButton, &QPushButton::clicked, this, &MainWindow::onResetClicked);
@@ -25,9 +26,11 @@ MainWindow::~MainWindow()
     delete stopwatch;
 }
 
-void MainWindow::updateTimeDisplay(float time)
+void MainWindow::updateTimeDisplay(int minutes, int seconds, int milliseconds)
 {
-    ui->timeLabel->setText(QString("Time: %1 sec").arg(time));
+    ui->minutesLabel->setText(QString("%1").arg(minutes, 2, 10, QLatin1Char('0')));
+    ui->secondsLabel->setText(QString("%1").arg(seconds, 2, 10, QLatin1Char('0')));
+    ui->millisecondsLabel->setText(QString("%1").arg(milliseconds, 2, 10, QLatin1Char('0')));
 }
 
 void MainWindow::addLap(const QString &lapTime)
@@ -35,22 +38,20 @@ void MainWindow::addLap(const QString &lapTime)
     ui->lapBrowser->append(lapTime);
 }
 
+void MainWindow::updateButtonStates(bool running)
+{
+    ui->lapButton->setEnabled(running);
+    ui->startStopButton->setText(running ? "Stop" : "Start");
+}
+
 void MainWindow::onStartStopClicked()
 {
     stopwatch->startStop();
-    if (stopwatch->getTime() == 0) {
-        ui->startStopButton->setText("Stop");
-    } else {
-        ui->startStopButton->setText("Start");
-    }
-    ui->lapButton->setEnabled(stopwatch->getTime() > 0);
 }
 
 void MainWindow::onResetClicked()
 {
     stopwatch->reset();
-    ui->startStopButton->setText("Start");
-    ui->lapButton->setEnabled(false);
     ui->lapBrowser->clear();
 }
 

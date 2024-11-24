@@ -11,7 +11,11 @@ qt_add_executable(neto-fith
     mainwindow.cpp
     mainwindow.h
     mainwindow.ui
-    stopwatch.h stopwatch.cpp
+    stopwatch.cpp
+    stopwatch.h
+    resources.qrc
+
+
 )
 
 target_link_libraries(neto-fith
@@ -34,3 +38,7 @@ qt_generate_deploy_app_script(
     NO_UNSUPPORTED_PLATFORM_ERROR
 )
 install(SCRIPT ${deploy_script})
+
+qt_add_resources(RESOURCES resources.qrc)
+target_sources(neto-fith PRIVATE ${RESOURCES})
+

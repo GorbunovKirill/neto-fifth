@@ -19,15 +19,16 @@ public:
     float getTime() const;
 
 signals:
-    void timeUpdated(float time);
+    void timeUpdated(int minutes, int seconds, int milliseconds);
     void lapTimeUpdated(const QString &lapTime);
+    void runningStateChanged(bool running);
 
 private slots:
     void updateTime();
 
 private:
     QTimer *timer;
-    float currentTime;
+    float currentTime; // Time in seconds
     bool running;
     int lapCount;
 };
